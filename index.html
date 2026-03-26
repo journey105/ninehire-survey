@@ -24,7 +24,7 @@ body { background: #f7f7f5; font-family: -apple-system, BlinkMacSystemFont, 'Seg
 @keyframes up { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 
 .av { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
-.av-ai { background: #4f8ef7; color: #fff; }
+.av-ai { background: #fff3cd; color: #333; font-size: 16px; }
 .av-me { background: #e8e8e8; color: #555; }
 
 .bbl { max-width: 78%; padding: 10px 14px; font-size: 14px; line-height: 1.65; border-radius: 18px; word-break: break-word; }
@@ -90,13 +90,13 @@ body { background: #f7f7f5; font-family: -apple-system, BlinkMacSystemFont, 'Seg
 <body>
 <div id="app">
   <div class="topbar">
-    <div class="brand"><div class="brand-dot"></div>나인하이어 채용홈페이지</div>
-    <div class="step-tag" id="stag">사전 안내</div>
+    <div class="brand"><div class="brand-dot"></div>나인하이어</div>
+    <div class="step-tag" id="stag" style="display:none;"></div>
   </div>
 
   <!-- 안내 화면 -->
   <div id="sc-notice" class="notice">
-    <div class="notice-h">채용홈페이지 제작<br>서베이</div>
+    <div class="notice-h">채용홈페이지<br>제작 서베이</div>
     <div class="notice-meta">
       <div class="meta-chip">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="opacity:.45"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -110,7 +110,7 @@ body { background: #f7f7f5; font-family: -apple-system, BlinkMacSystemFont, 'Seg
     <div class="ai-card">
       <div class="ai-card-title">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="#1a56db"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-        AI 인터뷰 안내
+        서베이 안내
       </div>
       안녕하세요. <strong>채용홈페이지 제작 서베이</strong>입니다.<br>
       채용홈페이지의 본격적인 제작에 앞서, 디자인 톤앤매너와 일정을 확인하는 간단한 서베이예요.<br><br>
@@ -121,7 +121,7 @@ body { background: #f7f7f5; font-family: -apple-system, BlinkMacSystemFont, 'Seg
       <label class="ci"><input type="checkbox" id="c1"> 콘텐츠 수령일로부터 약 <strong>1개월</strong> 제작 기간이 소요됩니다.</label>
       <label class="ci"><input type="checkbox" id="c2"> 디자인에 필요한 이미지는 고객사에서 직접 제공해주셔야 합니다. 간단한 디자인이나 스톡이미지 활용은 지원드리고 있으나, 브랜드 스타일에 맞는 <strong>디자인 에셋·gif·모션그래픽 제작은 지원이 어렵습니다.</strong></label>
     </div>
-    <div class="once-notice">⚠️ 본 인터뷰는 <strong>1회만 응답 가능</strong>합니다. 제출 후 수정이 어려우니 신중하게 작성해주세요.</div>
+    <div class="once-notice">⚠️ 제출 후 수정이 어려우니 신중하게 작성해주세요.</div>
     <button class="go-btn" onclick="goStart()">모두 확인했어요 — 인터뷰 시작</button>
   </div>
 
@@ -157,7 +157,8 @@ body { background: #f7f7f5; font-family: -apple-system, BlinkMacSystemFont, 'Seg
         일정 및 콘텐츠 작성과 관련하여<br>
         <strong>전담 디자이너가 영업일 기준 3일 이내에 직접 연락드릴 예정</strong>입니다.<br><br>
         더 구체적인 디자인 가이드나 레퍼런스 이미지가 있다면<br>
-        이후 전달드릴 <strong>콘텐츠 작성 폼</strong>에 첨부해주세요.
+        이후 전달드릴 <strong>콘텐츠 작성 폼</strong>에 첨부해주세요.<br><br>
+        수정을 원하신다면 해당 페이지를 다시 작성해주세요.
       </div>
     </div>
   </div>
@@ -174,14 +175,14 @@ const NODES = {
   },
   'brand': {
     label: '1단계 · 브랜드 이미지', pct: 16,
-    msg: '이번 채용홈페이지를 통해 지원자에게 <b>어떤 이미지</b>를 전달하고 싶으신가요?\n해당하는 항목을 <b>모두 선택</b>해주세요.',
+    msg: '이번 채용홈페이지를 통해 지원자에게 <b>어떤 이미지</b>를 전달하고 싶으신가요?\n해당하는 항목을 <b>모두 선택</b>해주세요. (1개 이상 선택 가능)',
     type: 'multi',
     options: ['전문적이고 신뢰감 있는 기업','젊고 역동적인 스타트업','따뜻하고 사람 중심의 문화','혁신적·글로벌한 이미지','안정적이고 탄탄한 중견기업','트렌디하고 감각적인 브랜드','전문성 높은 기술 중심 기업','사회적 가치를 추구하는 기업','도전적이고 성장 가능성 높은 곳','수평적이고 자율적인 조직문화'],
     freeNext: 'design', multiNext: 'design'
   },
   'design': {
     label: '2단계 · 디자인 톤앤매너', pct: 36,
-    msg: '이번엔 <b>디자인 톤앤매너</b>를 여쭤볼게요.\n선호하시는 전체적인 분위기나 스타일이 있으신가요?',
+    msg: '이번엔 <b>디자인 톤앤매너</b>를 여쭤볼게요.\n선호하시는 전체적인 분위기나 스타일이 있으신가요? (1개 선택)',
     qr: ['깔끔한 미니멀 / 화이트 계열','컬러풀하고 활기찬 느낌','고급스럽고 차분한 다크톤','회사 브랜드컬러 그대로','자연친화적 / 그린·어스톤','트렌디한 팝아트 / 볼드 스타일','신뢰감 있는 블루 계열','따뜻한 베이지·크림 계열','세련된 모노크롬 (흑백 계열)','밝고 경쾌한 파스텔 계열'],
     next: {'깔끔한 미니멀 / 화이트 계열':'design_minimal_q','컬러풀하고 활기찬 느낌':'design_colorful_q','고급스럽고 차분한 다크톤':'design_dark_q','회사 브랜드컬러 그대로':'design_brand_done','자연친화적 / 그린·어스톤':'design_green_q','트렌디한 팝아트 / 볼드 스타일':'design_bold_q','신뢰감 있는 블루 계열':'design_blue_q','따뜻한 베이지·크림 계열':'design_beige_q','세련된 모노크롬 (흑백 계열)':'design_mono_q','밝고 경쾌한 파스텔 계열':'design_pastel_q'},
     freeNext: 'focus'
@@ -400,12 +401,12 @@ function processInput(text) {
 function send() { const text = tin.value.trim(); if (!text || busy) return; processInput(text); }
 function addAI(html) {
   const r = document.createElement('div'); r.className = 'row ai';
-  r.innerHTML = `<div class="av av-ai">AI</div><div class="bbl">${html.replace(/\n/g,'<br>')}</div>`;
+  r.innerHTML = `<div class="av av-ai">😊</div><div class="bbl">${html.replace(/\n/g,'<br>')}</div>`;
   chat.appendChild(r); sc();
 }
 function addWarn(html) {
   const r = document.createElement('div'); r.className = 'row ai';
-  r.innerHTML = `<div class="av av-ai">AI</div><div class="warn-bbl">${html}</div>`;
+  r.innerHTML = `<div class="av av-ai">😊</div><div class="warn-bbl">${html}</div>`;
   chat.appendChild(r); sc();
 }
 function addUser(text) {
@@ -415,7 +416,7 @@ function addUser(text) {
 }
 function showT() {
   const r = document.createElement('div'); r.className = 'typing'; r.id = 'typ';
-  r.innerHTML = `<div class="av av-ai">AI</div><div class="typing-bbl"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  r.innerHTML = `<div class="av av-ai">😊</div><div class="typing-bbl"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
   chat.appendChild(r); sc();
 }
 function hideT() { const t = document.getElementById('typ'); if (t) t.remove(); }
