@@ -167,8 +167,22 @@ body { background: #f7f7f5; font-family: -apple-system, BlinkMacSystemFont, 'Seg
 <script>
 const NODES = {
   'company_input': {
-    label: '회사명 입력', pct: 5,
+    label: '기본 정보 입력', pct: 4,
     msg: '안녕하세요! 서베이 시작 전에 <b>회사명</b>을 입력해주세요.',
+    qr: [],
+    next: {},
+    freeNext: 'name_input'
+  },
+  'name_input': {
+    label: '기본 정보 입력', pct: 7,
+    msg: '감사합니다! 담당자 <b>성함</b>을 입력해주세요.',
+    qr: [],
+    next: {},
+    freeNext: 'email_input'
+  },
+  'email_input': {
+    label: '기본 정보 입력', pct: 10,
+    msg: '마지막으로 담당자 <b>이메일 주소</b>를 입력해주세요.',
     qr: [],
     next: {},
     freeNext: 'brand'
@@ -249,6 +263,8 @@ const WEBHOOK_URL = 'https://hook.eu1.make.com/7nrrr2j6w9fghmaywv7uvausx54byhal'
 
 const answers = {
   '회사명': '',
+  '담당자 이름': '',
+  '담당자 이메일': '',
   '브랜드 이미지': '',
   '디자인 톤앤매너': '',
   '중점 포커스': '',
@@ -260,6 +276,8 @@ const answers = {
 
 const NODE_CATEGORY = {
   'company_input': '회사명',
+  'name_input': '담당자 이름',
+  'email_input': '담당자 이메일',
   'brand': '브랜드 이미지',
   'design': '디자인 톤앤매너',
   'design_minimal_q': '디자인 톤앤매너',
@@ -441,7 +459,8 @@ function finishSurvey() {
     body: JSON.stringify(answers)
   }).catch(err => console.error('웹훅 전송 오류:', err));
 
-  addAI('오늘 서베이에 상세히 답변해주셔서 정말 감사합니다! 😊<br>전담 디자이너가 영업일 기준 <b>3일 이내</b>에 연락드릴게요.');
+  const name = answers['담당자 이름'] || '담당자';
+  addAI(`${name}님, 서베이에 상세히 답변해주셔서 정말 감사합니다! 😊<br>전담 디자이너가 영업일 기준 <b>3일 이내</b>에 연락드릴게요.`);
   stag.textContent = '완료';
   setTimeout(() => { document.getElementById('sc-chat').style.display = 'none'; document.getElementById('sc-done').style.display = 'block'; }, 1800);
 }
