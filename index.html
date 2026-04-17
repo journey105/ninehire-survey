@@ -257,7 +257,7 @@ const NODES = {
   }
 };
 
-let curNode = 'brand', busy = false, multiSelected = [];
+let curNode = 'company_input', busy = false, multiSelected = [];
 let history = [];
 const WEBHOOK_URL = 'https://hook.eu1.make.com/7nrrr2j6w9fghmaywv7uvausx54byhal';
 
@@ -328,11 +328,9 @@ function goStart() {
   renderNode('company_input');
 }
 
-function renderNode(nodeId, isBack) {
-  if (!isBack) {
-    // 이전 상태 스냅샷 저장 (이전으로 버튼용)
-    history.push({ nodeId: curNode, chatLen: chat.children.length });
-  }
+function renderNode(nodeId) {
+  // 현재 노드를 history에 저장 (이전으로 버튼용)
+  history.push({ nodeId: nodeId, chatLen: chat.children.length });
   curNode = nodeId;
   const n = NODES[nodeId];
   stag.textContent = n.label;
@@ -357,8 +355,10 @@ function renderNode(nodeId, isBack) {
 
 function goBack() {
   if (busy || history.length <= 1) return;
-  const prev = history.pop(); // 현재 노드 정보 제거
-  const target = history[history.length - 1]; // 돌아갈 노드
+  // 현재 노드 제거
+  history.pop();
+  // 돌아갈 노드
+  const target = history[history.length - 1];
   // 채팅 말풍선을 스냅샷 시점으로 되돌리기
   while (chat.children.length > target.chatLen) {
     chat.removeChild(chat.lastChild);
@@ -371,6 +371,8 @@ function goBack() {
   qrw.innerHTML = '';
   tin.value = ''; tin.style.height = 'auto';
   backBtn.style.display = history.length > 1 ? 'block' : 'none';
+  if (n.warn) { addWarn(n.warn); if (n.followMsg) addAI(n.followMsg); }
+  else if (n.msg) addAI(n.msg);
   if (n.type === 'multi') renderMulti(n.options);
   else setQR(n.qr || []);
   tgl();
